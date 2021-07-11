@@ -15,4 +15,14 @@ body {
   grid-column: 1/-1;
   background-color: rgb(34, 34, 34);
   color: #fff;
+  display: grid;
+  grid-template-columns: 90% auto;
+  align-content: center;
+  padding-left: 2%;
+}
+
+.tools {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  text-align: center;
 }

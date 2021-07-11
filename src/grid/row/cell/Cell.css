@@ -1,3 +1,7 @@
 .alive {
   background-color: red;
 }
+
+.cell {
+  height: 100%;
+}
