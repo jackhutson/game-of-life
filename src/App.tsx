@@ -7,6 +7,7 @@ interface AppState {
   life: LifeService;
   grid: boolean[][];
   active: boolean;
+  timeoutId: number;
 }
 
 interface Props {
@@ -22,23 +23,40 @@ class App extends React.Component<Props, AppState> {
       life: new LifeService(),
       grid: [],
       active: false,
+      timeoutId: 0,
     }
   }
-  
+  componentWillUnmount() {
+    window.clearInterval(this.state.timeoutId);
+  }
+
   playClick = () => {
     this.setState({
-      grid: this.state.life.seedGrid(),
+      grid: this.state.grid.length > 0 ? this.state.grid : this.state.life.seedGrid(),
       active: true,
+      timeoutId: window.setInterval(() => {
+        this.tick();
+      }, 1000)
+    });
+  }
+
+  tick = () => {
+    let newGrid = this.state.life.tick(this.state.grid);
+
+    this.setState({
+      grid: newGrid
     })
   }
 
   pauseClick = () => {
+    window.clearInterval(this.state.timeoutId);
     this.setState({
       active: false,
     })
   }
 
   stopClick = () => {
+    window.clearInterval(this.state.timeoutId);
     this.setState({
       grid: [],
       active: false,
@@ -51,8 +69,10 @@ class App extends React.Component<Props, AppState> {
         <header className="App-header">
           <div>Jack's Solution for Conway's Game of Life</div>
           <div className="tools">
-            <div onClick={this.playClick}>Play</div>
-            <div>Pause</div>
+            {this.state.active ?
+              <div onClick={this.pauseClick}>Pause</div> :
+              <div onClick={this.playClick}>Play</div>
+            }
             <div onClick={this.stopClick}>Stop</div>
           </div>
         </header>

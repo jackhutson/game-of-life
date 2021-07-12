@@ -19,6 +19,8 @@ body {
   grid-template-columns: 90% auto;
   align-content: center;
   padding-left: 2%;
+  border-bottom: 1px solid grey;
+  font-family: sans-serif;
 }
 
 .tools {
