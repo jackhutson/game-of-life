@@ -10,9 +10,7 @@ interface AppState {
   timeoutId: number;
 }
 
-interface Props {
-
-}
+interface Props { }
 
 class App extends React.Component<Props, AppState> {
 
@@ -41,10 +39,8 @@ class App extends React.Component<Props, AppState> {
   }
 
   tick = () => {
-    let newGrid = this.state.life.tick(this.state.grid);
-
     this.setState({
-      grid: newGrid
+      grid: this.state.life.tick(this.state.grid)
     })
   }
 
